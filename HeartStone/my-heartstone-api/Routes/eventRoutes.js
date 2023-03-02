@@ -4,9 +4,9 @@ const express = require('express');
 const eventController = require('../Controller/eventConrtoler');
 const router = express.Router();
 
-const { getEvents} = eventController;
+const { getCartes} = eventController;
 
-router.get('/cartes', getEvents);
+router.get('/cartes', getCartes);
 
 module.exports = {
     routes: router

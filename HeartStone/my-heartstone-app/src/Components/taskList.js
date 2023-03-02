@@ -1,17 +1,8 @@
 import React, { Fragment, useState } from 'react';
+import axios from 'axios';
 
 const TaskList = () => {
     const [carte, setCarte] = useState('');
-
-    const deleteHandler = () => {
-        console.log('inside delete');
-
-    };
-
-    const updateHandler = () => {
-        console.log('inside update');
-
-    };
 
     const getCarteHandler = () => {
         console.log('inside getCarte');
@@ -21,13 +12,28 @@ const TaskList = () => {
         console.log('inside getTouteLesCartes');
     };
 
+    const ajouterCarteHandler = () => {
+        axios.post('http://localhost:4000/postCarte', {
+            Carte : carte
+        })
+    };
+
+    const deleteHandler = () => {
+        console.log('inside delete');
+
+    };
+
+    const updateHandler = () => {
+        console.log('inside update');
+    };
+
     return <Fragment>
         <h3>Liste de Cartes</h3>
         <div className='ui input'>
             <input value={carte} onChange={e => setCarte(e.target.value)} placeholder='votre carte...' />
             {console.log(carte)}
         </div>
-        <button className='ui primary button basic'>Submit</button>
+        <button onClick={ajouterCarteHandler} className='ui primary button basic'>Submit</button>
         <div className="ui cards">
             <div className="card">
                 <div className="content">

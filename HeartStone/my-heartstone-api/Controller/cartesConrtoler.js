@@ -1,8 +1,7 @@
 'use strict';
 
-const carteData = require('../Data/CartesEvents');
-
-const getDataCartes = async (req, res, next) => {
+const cartesController = () => {
+    const getDataCartes = async (req, res, next) => {
     try {
         const cartes = await carteData.getCartes();
         res.send(cartes);
@@ -54,10 +53,5 @@ const deleteCarte = async (req, res, next) => {
     }
 };
 
-module.exports = {
-    getDataCartes,
-    getDataCarte,
-    créeCarte,
-    updateCarte,
-    deleteCarte,
 }
+

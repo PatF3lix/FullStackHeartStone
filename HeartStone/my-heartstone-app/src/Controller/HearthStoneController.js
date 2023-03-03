@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
 import Card from '../UI/Card';
-import Carte from './'
-import axios from 'axios';
+import ListCartesHearthStone from '../Components/ListCartesHearthStone';
 
 const HearthStoneController = () => {
     const [cartes, setCartes] = useState([]);
@@ -48,22 +47,22 @@ const HearthStoneController = () => {
 
     let contenu = <p></p>;
     if (cartes.length > 0) {
-        contenu = <ListeCarte cartes={cartes}/>
-    }
+        contenu = <ListCartesHearthStone cartes={cartes}/>
+    };
 
     if (isLoading) {
         contenu = <p>Loading...</p>
-    }
+    };
 
     if (error) {
         contenu = <p>{error}</p>
-    }
+    };
 
     //http://localhost:4000/api/AjouterCarte
     const ajouterCarteHandler = () => {
-        axios.post('http://localhost:4000/postCarte', {
-            Carte: carte
-        })
+        // axios.post('http://localhost:4000/postCarte', {
+        //     Carte: carte
+        // })
     };
 
     //http://localhost:4000/api/GetCarte/:id

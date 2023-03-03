@@ -60,11 +60,25 @@ const updateCarte = async (carteId, carteData) => {
     } catch (error) {
         return error.message;
     }
-}
+};
+
+const deleteCarte = async (carteId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('CartesEvents');
+        const carteDeleter = await pool.request()
+            .input('carteId', sql.Int, carteId)
+            .query(sqlQueries.deleteCarte);
+        return carteDeleter.recordset;
+    } catch (error) {
+        return error.message;
+    }
+};
 
 module.exports = {
     getCartes,
     getCarteById,
     createCarte,
     updateCarte,
+    deleteCarte
 }

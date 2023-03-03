@@ -45,9 +45,20 @@ const updateCarte = async (req, res, next) => {
     }
 };
 
+const deleteCarte = async (req, res, next) => {
+    try {
+        const carteId = req.params.id;
+        const carteDeleter = await carteData.deleteCarte(carteId);
+        res.send(carteDeleter);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
 module.exports = {
     getDataCartes,
     getDataCarte,
     créeCarte,
     updateCarte,
+    deleteCarte,
 }

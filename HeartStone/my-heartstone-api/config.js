@@ -22,7 +22,8 @@ module.exports = {
         options: {
             encrypt: sqlEncrypt,
             enableArithAbort: true,
-            trustedConnection: true
+            trustedconnection: true,
+            instancename: ""
         }
     }
 }

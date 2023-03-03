@@ -7,8 +7,8 @@ const sql = require('mssql');
 const getCartes = async () => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('Cartes');
-        const list = await pool.request().query(sqlQueries.eventsList);
+        const sqlQueries = await utils.loadSqlQueries('CartesEvents');
+        const list = await pool.request().query(sqlQueries.listDeCartes);
         return list.recordset;
 
     } catch (error) {

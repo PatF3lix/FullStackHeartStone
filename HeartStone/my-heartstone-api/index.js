@@ -3,14 +3,14 @@ const express = require('express');
 const config = require('./config');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const eventRoutes = require('./Routes/eventRoutes');
+const cartesRoutes = require('./Routes/cartesRoutes');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/api', eventRoutes.routes);
+app.use('/api', cartesRoutes.routes);
 
 
 app.listen(config.port, () => {

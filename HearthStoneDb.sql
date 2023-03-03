@@ -1,7 +1,7 @@
-create database HearthStone
+create database HearthStone2
 Go
 
-use HearthStone
+use HearthStone2
 Go
 
 
@@ -44,3 +44,5 @@ select
     as ConnectionString
 from sys.server_principals
 where name = suser_name()
+
+SCOPE_IDENTITY()

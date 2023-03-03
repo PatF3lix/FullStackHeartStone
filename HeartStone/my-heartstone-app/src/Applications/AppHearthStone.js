@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 
-const TaskList = () => {
+const AppHearthStone = () => {
     const [carte, setCarte] = useState('');
 
     const getCarteHandler = () => {
@@ -14,7 +14,7 @@ const TaskList = () => {
 
     const ajouterCarteHandler = () => {
         axios.post('http://localhost:4000/postCarte', {
-            Carte : carte
+            Carte: carte
         })
     };
 
@@ -50,6 +50,6 @@ const TaskList = () => {
             </div>
         </div>
     </Fragment>
-}
+};
 
-export default TaskList;
+export default AppHearthStone;

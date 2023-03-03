@@ -1,0 +1,20 @@
+.carte {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: black;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+}
+
+.carte h2 {
+    font-size: 2rem;
+    color: #f7e702;
+}
+
+.carte h3 {
+    color: #eccf77;
+    margin: 0;
+    font-size: 1rem;
+}

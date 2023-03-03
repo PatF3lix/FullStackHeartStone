@@ -31,14 +31,32 @@ const createCarte = async (carteData) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('CartesEvents');
         const nouvelCarte = await pool.request()
-                .input('carteRareter', sql.NVarChar(50), carteData.Rareter)
-                .input('carteNom', sql.NVarChar(100), carteData.Nom)
-                .input('carteCout', sql.Int, carteData.Cout)
-                .input('carteVie', sql.Int, carteData.Vie)
-                .input('carteAttack', sql.Int, carteData.Attack)
+            .input('carteRareter', sql.NVarChar(50), carteData.Rareter)
+            .input('carteNom', sql.NVarChar(100), carteData.Nom)
+            .input('carteCout', sql.Int, carteData.Cout)
+            .input('carteVie', sql.Int, carteData.Vie)
+            .input('carteAttack', sql.Int, carteData.Attack)
             .query(sqlQueries.createCarte);
         console.log(nouvelCarte);
         return nouvelCarte.recordset;
+    } catch (error) {
+        return error.message;
+    }
+};
+
+const updateCarte = async (carteId, carteData) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('CartesEvents');
+        const carteMisAJour = await pool.request()
+            .input('carteRareter', sql.NVarChar(50), carteData.Rareter)
+            .input('carteId', sql.Int, carteId)
+            .input('carteNom', sql.NVarChar(100), carteData.Nom)
+            .input('carteCout', sql.Int, carteData.Cout)
+            .input('carteVie', sql.Int, carteData.Vie)
+            .input('carteAttack', sql.Int, carteData.Attack)
+            .query(sqlQueries.updateCarte);
+        return carteMisAJour.recordset;
     } catch (error) {
         return error.message;
     }
@@ -47,5 +65,6 @@ const createCarte = async (carteData) => {
 module.exports = {
     getCartes,
     getCarteById,
-    createCarte
+    createCarte,
+    updateCarte,
 }

@@ -10,8 +10,20 @@ const getDataCartes = async (req, res, next) => {
     } catch (error) {
         res.status(400).send(error.message);
     }
+};
+
+const getDataCarte = async (req, res, next) => {
+    try {
+        const carteId = req.params.id;
+        const carte = await carteData.getCarteById(carteId);
+        res.send(carte);
+
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 }
 
 module.exports = {
-    getDataCartes
+    getDataCartes,
+    getDataCarte
 }

@@ -7,8 +7,9 @@ const PageHearthStone = () => {
         <u>
             <h1 style={{ paddingBottom: '50px' }}>Application HearthStone</h1>
         </u>
-                <h3>Liste de Cartes</h3>
-        <div className='ui input'>
+        <h3>Liste de Cartes</h3>
+        <HearthStoneController/>
+        {/* <div className='ui input'>
             <input value={carte} onChange={e => setCarte(e.target.value)} placeholder='votre carte...' />
             {console.log(carte)}
         </div>
@@ -27,7 +28,7 @@ const PageHearthStone = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */}
     </Fragment>
 };
 

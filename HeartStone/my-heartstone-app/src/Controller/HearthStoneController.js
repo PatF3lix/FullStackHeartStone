@@ -15,7 +15,8 @@ const HearthStoneController = () => {
             const response = await fetch('http://localhost:4000/api/GetCartes');
             if (!response.ok) {
                 throw new Error('Une erreur est survenu lors de lopération getCartes');
-            }
+            } 
+            
             const data = await response.json();
             console.log(data);
             const cartesDsLaDb = data.results.map(carteData => {

@@ -5,10 +5,11 @@ const cartesController = require('../Controller/cartesConrtoler');
 const { getCarteById } = require('../Data/CartesEvents');
 const router = express.Router();
 
-const { getDataCartes, getDataCarte} = cartesController;
+const { getDataCartes, getDataCarte, créeCarte} = cartesController;
 
-router.get('/Cartes', getDataCartes);
-router.get('/Carte/:id', getDataCarte);
+router.get('/GetCartes', getDataCartes);
+router.get('/GetCarte/:id', getDataCarte);
+router.post('/AjouterCarte', créeCarte);
 
 module.exports = {
     routes: router

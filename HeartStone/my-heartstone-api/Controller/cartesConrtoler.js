@@ -21,9 +21,21 @@ const getDataCarte = async (req, res, next) => {
     } catch (error) {
         res.status(400).send(error.message);
     }
+};
+
+const créeCarte = async (req, res, next) => {
+    try {
+            const dataNouvelCarte = req.body;
+            const nouvelCarte = await carteData.createCarte(dataNouvelCarte);
+            console.log(nouvelCarte);
+            res.send(nouvelCarte);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 }
 
 module.exports = {
     getDataCartes,
-    getDataCarte
+    getDataCarte,
+    créeCarte,
 }

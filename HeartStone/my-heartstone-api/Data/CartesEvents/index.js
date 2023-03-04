@@ -37,7 +37,6 @@ const createCarte = async (carteData) => {
             .input('carteVie', sql.Int, carteData.Vie)
             .input('carteAttack', sql.Int, carteData.Attack)
             .query(sqlQueries.createCarte);
-        console.log(nouvelCarte);
         return nouvelCarte.recordset;
     } catch (error) {
         return error.message;

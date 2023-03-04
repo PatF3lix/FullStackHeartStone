@@ -1,11 +1,33 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
+import React, { useCallback, useState, useRef, useEffect, Fragment } from 'react';
 import Card from '../UI/Card';
 import ListCartesHearthStone from '../Components/ListCartesHearthStone';
+import CardHearthStone from '../UI/CardHearthStone';
+import CarteForm from '../Components/CarteForm';
 
 const HearthStoneController = () => {
     const [cartes, setCartes] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setErreur] = useState(null);
+    const [carteChoisi, setCarteChoisi] = useState({ Rareter: '', Nom: '', Cout: 0, Attack: 0, Vie: 0 });
+    const [carteRecuParApi, setCarteRecuParApi] = useState({ Id: 0, Rareter: '', Nom: '', Cout: 0, Attack: 0, Vie: 0 });
+    
+    // binding this with on change let u get the value in the input fields entered by the user 
+    const validationInput = (e) => {
+        const { name, value } = e.target;
+
+        console.log(value);
+        if ((name === 'Cout' || name ===  'Attack' || name ===  'Vie')) {
+            setCarteChoisi(prevState => ({
+                ...prevState,
+                [name]: parseInt(value)
+            }));
+            return;
+        }
+        setCarteChoisi(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
     
     //http://localhost:4000/api/GetCartes
     const getTouteLesCarteHandler = useCallback(async () => {
@@ -16,10 +38,8 @@ const HearthStoneController = () => {
             if (!response.ok) {
                 throw new Error('Une erreur est survenu lors de lopération getCartes');
             } 
-            
             const data = await response.json();
-            console.log(data);
-            const cartesDsLaDb = data.results.map(carteData => {
+            const cartesDsLaDb = data.map(carteData => {
                 return {
                     Id: carteData.Id,
                     Rareter: carteData.Rareter,
@@ -35,36 +55,20 @@ const HearthStoneController = () => {
         }
         setIsLoading(false);
     }, []);
-    
-    const initialRender = useRef(true);
-
-    useEffect(() => {
-        if (initialRender) {
-            initialRender.current = false;
-        } else {
-            getTouteLesCarteHandler();
-        }
-    }, [getTouteLesCarteHandler]);
-
-    let contenu = <p></p>;
-    if (cartes.length > 0) {
-        contenu = <ListCartesHearthStone cartes={cartes}/>
-    };
-
-    if (isLoading) {
-        contenu = <p>Loading...</p>
-    };
-
-    if (error) {
-        contenu = <p>{error}</p>
-    };
 
     //http://localhost:4000/api/AjouterCarte
-    const ajouterCarteHandler = () => {
-        // axios.post('http://localhost:4000/postCarte', {
-        //     Carte: carte
-        // })
-    };
+    const ajouterCarteHandler = useCallback(async () => {
+        const nouvelCarte = await fetch('http://localhost:4000/api/AjouterCarte', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({...carteChoisi})
+        }).then(response => response.json())
+        console.log(nouvelCarte);
+        setCarteRecuParApi(nouvelCarte);
+    });
 
     //http://localhost:4000/api/GetCarte/:id
     const getCarteHandler = () => {
@@ -80,20 +84,48 @@ const HearthStoneController = () => {
     const updateHandler = () => {
         console.log('inside update');
     };
+    
+    const initialRender = useRef(true);
 
-    return <Card>
-        <section>
-            <b>
-                <u>
-                    <p>Appuyer sur le bouton pour afficher les Cartes HearthStone de la Db</p>
-                </u>
-            </b>
-            <button onClick={getTouteLesCarteHandler}>Clicker pour afficher les Cartes HeartStone de la Db</button>
+    useEffect(() => {
+        if (initialRender) {
+            initialRender.current = false;
+        } else {
+            getTouteLesCarteHandler();
+        }
+    }, [getTouteLesCarteHandler]);
+
+    let contenu = <p></p>;
+    if (cartes.length > 0) {
+        contenu = <ListCartesHearthStone CarteHearthStone={cartes}/>
+    };
+
+    if (isLoading) {
+        contenu = <p>Loading...</p>
+    };
+
+    if (error) {
+        contenu = <p>{error}</p>
+    };
+
+    return <Fragment>
+        <Card>
+            <CarteForm setInput={validationInput} ajouterCarte={ ajouterCarteHandler } ></CarteForm>
+        </Card>
+        <Card>
+            <section>
+                <b>
+                    <u>
+                        <p>Appuyer sur le bouton pour afficher les Cartes HearthStone de la Db</p>
+                    </u>
+                </b>
+                <button onClick={getTouteLesCarteHandler}>Clicker pour afficher les Cartes HeartStone de la Db</button>
         </section>
-        <section>
+        </Card>
+        {<CardHearthStone>
             {contenu}
-        </section>
-    </Card>
+        </CardHearthStone>}
+    </Fragment>
 };
 
 export default HearthStoneController;

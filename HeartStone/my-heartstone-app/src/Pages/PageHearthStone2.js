@@ -14,7 +14,6 @@ const PageHearthStone2 = () => {
 
     const validationInput = (e) => {
         const { name, value } = e.target;
-
         console.log(value);
         if ((name === 'Cout' || name ===  'Attack' || name ===  'Vie')) {
             setCarteChoisi(prevState => ({
@@ -28,7 +27,7 @@ const PageHearthStone2 = () => {
             [name]: value
         }));
     };
-    
+
     //http://localhost:4000/api/GetCartes
     const getTouteLesCarteHandler = useCallback(async () => {
         setIsLoading(true);
@@ -68,19 +67,42 @@ const PageHearthStone2 = () => {
         }).then(response => response.json())
     });
 
-    //http://localhost:4000/api/GetCarte/:id
-    const getCarteHandler = useCallback(async () => {
-        console.log('inside getCarte');
-    });
-
     //http://localhost:4000/api/DeleteCarte/:id
-    const deleteHandler = (props) => {
-        console.log('inside delete');
+    const deleteCarte = async (Id) => {
+        try {
+            console.log(`http://localhost:4000/api/DeleteCarte/${Id}`);
+            const carteDeleter = await fetch(`http://localhost:4000/api/DeleteCarte/${Id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+            if(carteDeleter.ok) {
+                const idCarteDeleter = await carteDeleter.json();
+                console.log('Une Carte a été retirer')
+            } else {
+                console.log('une erreur est survenu la carte nest pas deleter');
+            }
+        } catch (error) {
+            setErreur(error.message);
+        }
     };
 
     // http://localhost:4000/api/UpdateCarte/1
-    const updateHandler = (props) => {
-        console.log('inside update');
+    const updateCarte = async (Id) => {
+        try {
+            const carteModifier = await fetch(`http://localhost:4000/api/UpdateCarte/${Id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ ...carteChoisi })
+            }).then(response => response.json())
+        } catch (error) {
+            setErreur(error.message);
+        }
     };
 
     return(<Fragment>
@@ -95,12 +117,20 @@ const PageHearthStone2 = () => {
                 </b>
                 <button onClick={getTouteLesCarteHandler}>Clicker pour afficher les Cartes HeartStone de la Db</button>
         </section>
-        <Tableaux cartes={cartes} deleteCarte={deleteHandler} updateCarte={updateHandler}  />
+        <div>
+            <Tableaux cartes={cartes} deleteCarte={deleteCarte} updateCarte={updateCarte}/>
+        </div>
         <div>
             <h2>Ajouter Une nouvel Carte</h2>
-            <CarteForm setInput={validationInput} ajouterCarte={ ajouterCarteHandler } />
+            <CarteForm setInput={validationInput} ajouterCarte={ajouterCarteHandler}/>
         </div> 
     </Fragment>)
 }
 
 export default PageHearthStone2;
+
+
+    //http://localhost:4000/api/GetCarte/:id
+    // const getCarteHandler = useCallback(async () => {
+    //     console.log('inside getCarte');
+    // });

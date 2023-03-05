@@ -3,7 +3,7 @@ import './App.css';
 import PagePrincipale from './Pages/PagePrincipale';
 import PageErreur from './Pages/PageErreur';
 import RootLayout from './Pages/Root';
-import PageHearthStone2 from './Pages/PageHearthStone2';
+import PageHearthStone from './Pages/PageHearthStone';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/HearthStone',
-        element: <PageHearthStone2 />
+        element: <PageHearthStone />
       },
     ]
   },

@@ -1,9 +1,49 @@
 import { Button, Table } from 'react-bootstrap';
 import React, { useState} from 'react';
-import CarteForm from './CarteForm';
+import CarteForm from './AddCarteForm';
+import CarteHearthStone from './CarteHearthStone';
+import UpdateCarteForm from './UpdateCarteForm';
 
 const Tableaux = (props) => {
+    const [etatInitiale, setEtatInitiale] = useState(true);
     const [updateClicker, setUpdateClicker] = useState(false);
+    const [ajouterClicker, setAjouterClicker] = useState(false);
+
+    const buttonAjouterHandler = (props) => {
+        setEtatInitiale(false);
+        setUpdateClicker(false);
+        setAjouterClicker(true);
+        console.log('in button ajouter')
+
+    }
+
+    const buttonUpdateHandler = (props) => {
+        console.log('in button update')
+        setEtatInitiale(false);
+        setAjouterClicker(false);
+        setUpdateClicker(true);
+
+    }
+
+    var contenu;
+
+    if (etatInitiale == false && updateClicker == true && ajouterClicker == false) {
+        contenu = <div>
+                <br>
+            </br>
+            <h2>UpdateCarteForm</h2>
+                <UpdateCarteForm setInput={props.setInput} ajouterCarte={props.ajouterCarte} />
+            </div>
+    } else if (etatInitiale == false && updateClicker == false == ajouterClicker == true) {
+        contenu = <div>
+                <br>
+            </br>
+            <h2>AjouterCarteForm</h2>
+                <CarteForm setInput={props.setInput} ajouterCarte={props.ajouterCarte} />
+            </div>
+    } else {
+        contenu = null;
+    }
 
     return(<div style={{margin: "5rem"}}>
             <Table striped bordered hover size="sm">
@@ -29,26 +69,35 @@ const Tableaux = (props) => {
                                     <td>{carte.Attack}</td>
                                     <td>{carte.Vie}</td>
                                     <td>
-                                        <Button type="button" onClick={() => {props.updateHandler(carte.Id)}}>Update</Button>
-                                        &nbsp;
-                                        <Button type="button" onClick={() => {props.deleteCarte(carte.Id)}}>Delete</Button>
+
+                                        <Button
+                                            type="button"
+                                            onClick={() => { props.deleteCarte(carte.Id) }}>
+                                            Delete</Button>
                                     </td>
                                 </tr>
+                                    
                             )}))
                             :
                     null
                 }
-                </tbody>
+            </tbody>
         </Table>
-        <br>
-        </br>
-        <Button onClick={() => {setUpdateClicker(true)}} size="lg">Ajouter Une Carte</Button>
-        {updateClicker == true ?
-            <div>
-                <br>
-                </br>
-                <CarteForm setInput={props.setInput} ajouterCarte={props.ajouterCarte} />
-            </div> : null}
+        <div className='d-grid gap-2'>
+            <button
+                type="button"
+                class="btn btn-primary btn-lg btn-block"
+                onClick={() => { buttonUpdateHandler() }}
+                >Update</button>
+        </div>
+        <div className='d-grid gap-2' style={{ paddingTop:'10px' }}>
+            <button
+                type="button"
+                class="btn btn-primary btn-lg btn-block"
+                onClick={() => { buttonAjouterHandler() }}
+                >Ajouter Une Carte</button>
+        </div>
+        {contenu}
     </div>)
 }
 export default Tableaux;

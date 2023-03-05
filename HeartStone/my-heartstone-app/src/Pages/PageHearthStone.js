@@ -1,17 +1,16 @@
 
 import React, { useCallback, useState, useRef, useEffect, Fragment } from 'react';
 import Tableaux from '../Components/Tableaux';
-import CarteForm from '../Components/CarteForm';
+import CarteForm from '../Components/AddCarteForm';
 
 const PageHearthStone2 = () => {
     const [cartes, setCartes] = useState([]);
-    const [carteChoisi, setCarteChoisi] = useState({ Rareter: '', Nom: '', Cout: 0, Attack: 0, Vie: 1 });
-    const [carteRecuParApi, setCarteRecuParApi] = useState({ Id: 0, Rareter: 'COMMON', Nom: '', Cout: 0, Attack: 0, Vie: 0 });
+    const [carteChoisi, setCarteChoisi] = useState({ Rareter: 'COMMON', Nom: '', Cout: 0, Attack: 0, Vie: 1 });
 
     const validationInput = (e) => {
         const { name, value } = e.target;
         console.log(value);
-        if ((name === 'Cout' || name ===  'Attack' || name ===  'Vie')) {
+        if (( name ===  'Id' || name === 'Cout' || name ===  'Attack' || name ===  'Vie')) {
             setCarteChoisi(prevState => ({
                 ...prevState,
                 [name]: parseInt(value)

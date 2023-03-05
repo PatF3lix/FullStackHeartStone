@@ -5,8 +5,6 @@ const CardHearthStone = (props) => {
     return <Fragment>
         <div className={classes.card}>
             {props.children}
-            <button>Update</button>
-            <button>Delete</button>
         </div>
     </Fragment>
 };

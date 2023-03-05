@@ -71,17 +71,17 @@ const HearthStoneController = () => {
     });
 
     //http://localhost:4000/api/GetCarte/:id
-    const getCarteHandler = () => {
+    const getCarteHandler = useCallback(async () => {
         console.log('inside getCarte');
-    };
+    });
 
     //http://localhost:4000/api/DeleteCarte/:id
-    const deleteHandler = () => {
+    const deleteHandler = (props) => {
         console.log('inside delete');
     };
 
     // http://localhost:4000/api/UpdateCarte/1
-    const updateHandler = () => {
+    const updateHandler = (props) => {
         console.log('inside update');
     };
     
@@ -93,11 +93,11 @@ const HearthStoneController = () => {
         } else {
             getTouteLesCarteHandler();
         }
-    }, [getTouteLesCarteHandler]);
+    }, [getTouteLesCarteHandler, ajouterCarteHandler]);
 
     let contenu = <p></p>;
     if (cartes.length > 0) {
-        contenu = <ListCartesHearthStone CarteHearthStone={cartes}/>
+        contenu = <ListCartesHearthStone updateHandler={updateHandler} deleteHandler={deleteHandler} CarteHearthStone={cartes}/>
     };
 
     if (isLoading) {

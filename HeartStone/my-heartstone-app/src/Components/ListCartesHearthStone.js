@@ -7,7 +7,9 @@ const ListCartesHearthStone = (props) => {
         <ul className={classes['cartes-list']}>
             {props.CarteHearthStone.map((carte) => (
                 <CarteHearthStone
-                    key={carte.Id}
+                    updateHandler={props.updateHandler}
+                    deleteHandler={props.deleteHandler}
+                    Id={carte.Id}
                     Rareter={carte.Rareter}
                     Nom={carte.Nom}
                     Cout={carte.Cout}

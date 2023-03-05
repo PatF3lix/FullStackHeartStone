@@ -1,40 +1,38 @@
 import { Button, Table } from 'react-bootstrap';
 import React, { useState} from 'react';
 import CarteForm from './AddCarteForm';
-import CarteHearthStone from './CarteHearthStone';
 import UpdateCarteForm from './UpdateCarteForm';
 
+// Ce composant est resposable de l'affichage du tableau de donnée de la base de donnée HearthStone et du contenu dynamic correspondant au event
+// déclendhé par l'utilisateur. Button UpdateCarte et AjouterCarte. FormAjouterCarte et FormUpdateCarte.
 const Tableaux = (props) => {
     const [etatInitiale, setEtatInitiale] = useState(true);
     const [updateClicker, setUpdateClicker] = useState(false);
     const [ajouterClicker, setAjouterClicker] = useState(false);
 
-    const buttonAjouterHandler = (props) => {
+    const buttonAjouterHandler = () => {
+        props.setErreur(false);
         setEtatInitiale(false);
         setUpdateClicker(false);
         setAjouterClicker(true);
-        console.log('in button ajouter')
-
     }
 
-    const buttonUpdateHandler = (props) => {
-        console.log('in button update')
+    const buttonUpdateHandler = () => {
         setEtatInitiale(false);
         setAjouterClicker(false);
         setUpdateClicker(true);
-
     }
 
     var contenu;
 
-    if (etatInitiale == false && updateClicker == true && ajouterClicker == false) {
+    if (etatInitiale === false && updateClicker === true && ajouterClicker === false) {
         contenu = <div>
                 <br>
             </br>
             <h2>UpdateCarteForm</h2>
-                <UpdateCarteForm validationInputUpdate={props.validationInputUpdate} updateCarte={props.updateCarte} />
+                <UpdateCarteForm validationInputUpdate={props.validationInputUpdate} updateCarte={props.updateCarte} erreur={props.erreur} />
             </div>
-    } else if (etatInitiale == false && updateClicker == false == ajouterClicker == true) {
+    } else if (etatInitiale === false && updateClicker === false && ajouterClicker === true) {
         contenu = <div>
                 <br>
             </br>
@@ -84,18 +82,18 @@ const Tableaux = (props) => {
             </tbody>
         </Table>
         <div className='d-grid gap-2'>
-            <button
+            <Button
                 type="button"
-                class="btn btn-primary btn-lg btn-block"
+                className='btn btn-primary btn-lg btn-block'
                 onClick={() => { buttonUpdateHandler() }}
-                >Update</button>
+                >Update</Button>
         </div>
         <div className='d-grid gap-2' style={{ paddingTop:'10px' }}>
-            <button
+            <Button
                 type="button"
-                class="btn btn-primary btn-lg btn-block"
+                className='btn btn-primary btn-lg btn-block'
                 onClick={() => { buttonAjouterHandler() }}
-                >Ajouter Une Carte</button>
+                >Ajouter Une Carte</Button>
         </div>
         {contenu}
     </div>)

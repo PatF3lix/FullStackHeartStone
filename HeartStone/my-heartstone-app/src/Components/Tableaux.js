@@ -32,14 +32,14 @@ const Tableaux = (props) => {
                 <br>
             </br>
             <h2>UpdateCarteForm</h2>
-                <UpdateCarteForm setInput={props.setInput} ajouterCarte={props.ajouterCarte} />
+                <UpdateCarteForm validationInputUpdate={props.validationInputUpdate} updateCarte={props.updateCarte} />
             </div>
     } else if (etatInitiale == false && updateClicker == false == ajouterClicker == true) {
         contenu = <div>
                 <br>
             </br>
             <h2>AjouterCarteForm</h2>
-                <CarteForm setInput={props.setInput} ajouterCarte={props.ajouterCarte} />
+                <CarteForm validationInputAjouter={props.validationInputAjouter} ajouterCarte={props.ajouterCarte} />
             </div>
     } else {
         contenu = null;
@@ -55,7 +55,7 @@ const Tableaux = (props) => {
                     <th>Cout</th>
                     <th>Attack</th>
                     <th>Vie</th>
-                    <th>Opérations</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>

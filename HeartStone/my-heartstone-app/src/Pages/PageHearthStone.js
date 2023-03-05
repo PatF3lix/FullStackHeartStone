@@ -5,19 +5,36 @@ import CarteForm from '../Components/AddCarteForm';
 
 const PageHearthStone2 = () => {
     const [cartes, setCartes] = useState([]);
-    const [carteChoisi, setCarteChoisi] = useState({ Rareter: 'COMMON', Nom: '', Cout: 0, Attack: 0, Vie: 1 });
+    const [carteAjouter, setCarteAjouter] = useState({ Rareter: 'COMMON', Nom: '', Cout: 0, Attack: 0, Vie: 1 });
+    const [carteUpdater, setCarteUpdater] = useState({ Id: 0, Rareter: '', Nom: '', Cout: 0, Attack: 0, Vie: 0 });
 
-    const validationInput = (e) => {
+    const validationInputAjouter = (e) => {
         const { name, value } = e.target;
         console.log(value);
-        if (( name ===  'Id' || name === 'Cout' || name ===  'Attack' || name ===  'Vie')) {
-            setCarteChoisi(prevState => ({
+        if (( name === 'Cout' || name ===  'Attack' || name ===  'Vie')) {
+            setCarteAjouter(prevState => ({
                 ...prevState,
                 [name]: parseInt(value)
             }));
             return;
         }
-        setCarteChoisi(prevState => ({
+        setCarteAjouter(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const validationInputUpdate = (e) => {
+        const { name, value } = e.target;
+        console.log(value);
+        if (( name === 'Id' || name === 'Cout' || name ===  'Attack' || name ===  'Vie')) {
+            setCarteUpdater(prevState => ({
+                ...prevState,
+                [name]: parseInt(value)
+            }));
+            return;
+        }
+        setCarteUpdater(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -59,7 +76,7 @@ const PageHearthStone2 = () => {
                 headers: {
                     'Content-type': 'application/json',
                     'Accept': 'application/json'
-                },body: JSON.stringify(carteChoisi)
+                },body: JSON.stringify(carteAjouter)
             }).then(response => response.json());
         } catch (error) {
             console.log(error.message);
@@ -83,15 +100,15 @@ const PageHearthStone2 = () => {
     };
 
     // http://localhost:4000/api/UpdateCarte/:id
-    const updateCarte = async (Id) => {
+    const updateCarte = async (props) => {
         try {
-            const carteModifier = await fetch(`http://localhost:4000/api/UpdateCarte/${Id}`, {
+            const carteModifier = await fetch(`http://localhost:4000/api/UpdateCarte/${carteUpdater.Id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ ...carteChoisi })
+                body: JSON.stringify({ ...carteUpdater })
             }).then(response => response.json())
         } catch (error) {
             console.log(error.message);
@@ -106,10 +123,11 @@ const PageHearthStone2 = () => {
             <h2>Liste de Cartes HeartStone dans La DB</h2>
             <Tableaux
                 cartes={cartes}
+                ajouterCarte={ajouterCarteHandler}
                 deleteCarte={deleteCarte}
                 updateCarte={updateCarte}
-                setInput={validationInput}
-                ajouterCarte={ajouterCarteHandler}
+                validationInputAjouter={validationInputAjouter}
+                validationInputUpdate={validationInputUpdate}
             />
         </div>  
     </Fragment>)

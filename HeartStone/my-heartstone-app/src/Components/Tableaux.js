@@ -1,6 +1,10 @@
 import { Button, Table } from 'react-bootstrap';
+import React, { useState} from 'react';
+import CarteForm from './CarteForm';
 
 const Tableaux = (props) => {
+    const [updateClicker, setUpdateClicker] = useState(false);
+
     return(<div style={{margin: "5rem"}}>
             <Table striped bordered hover size="sm">
             <thead>
@@ -25,17 +29,26 @@ const Tableaux = (props) => {
                                     <td>{carte.Attack}</td>
                                     <td>{carte.Vie}</td>
                                     <td>
-                                        <Button type="button" onClick={() => {props.updateCarte(carte.Id)}}>Update</Button>
+                                        <Button type="button" onClick={() => {props.updateHandler(carte.Id)}}>Update</Button>
                                         &nbsp;
                                         <Button type="button" onClick={() => {props.deleteCarte(carte.Id)}}>Delete</Button>
                                     </td>
                                 </tr>
                             )}))
                             :
-                            null
-                    }
+                    null
+                }
                 </tbody>
         </Table>
+        <br>
+        </br>
+        <Button onClick={() => {setUpdateClicker(true)}} size="lg">Ajouter Une Carte</Button>
+        {updateClicker == true ?
+            <div>
+                <br>
+                </br>
+                <CarteForm setInput={props.setInput} ajouterCarte={props.ajouterCarte} />
+            </div> : null}
     </div>)
 }
 export default Tableaux;

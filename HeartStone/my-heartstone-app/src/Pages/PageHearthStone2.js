@@ -3,14 +3,10 @@ import React, { useCallback, useState, useRef, useEffect, Fragment } from 'react
 import Tableaux from '../Components/Tableaux';
 import CarteForm from '../Components/CarteForm';
 
-
-
 const PageHearthStone2 = () => {
-    const [cartes, setCartes] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setErreur] = useState(null);
-    const [carteChoisi, setCarteChoisi] = useState({ Rareter: '', Nom: '', Cout: 0, Attack: 0, Vie: 0 });
-    const [carteRecuParApi, setCarteRecuParApi] = useState({ Id: 0, Rareter: '', Nom: '', Cout: 0, Attack: 0, Vie: 0 });
+    const [cartes, setCartes] = useState([]);
+    const [carteChoisi, setCarteChoisi] = useState({ Rareter: '', Nom: '', Cout: 0, Attack: 0, Vie: 1 });
+    const [carteRecuParApi, setCarteRecuParApi] = useState({ Id: 0, Rareter: 'COMMON', Nom: '', Cout: 0, Attack: 0, Vie: 0 });
 
     const validationInput = (e) => {
         const { name, value } = e.target;
@@ -29,9 +25,7 @@ const PageHearthStone2 = () => {
     };
 
     //http://localhost:4000/api/GetCartes
-    const getTouteLesCarteHandler = useCallback(async () => {
-        setIsLoading(true);
-        setErreur(null);
+    const getTouteLesCarteHandler = (async () => {
         try {
             const response = await fetch('http://localhost:4000/api/GetCartes');
             if (!response.ok) {
@@ -50,46 +44,46 @@ const PageHearthStone2 = () => {
             });
             setCartes(cartesDsLaDb);
         } catch (error) {
-            setErreur(error.message);
+            console.log(error.message);
         }
-        setIsLoading(false);
-    }, []);
+    });
 
-        //http://localhost:4000/api/AjouterCarte
+    useEffect(() => {
+        getTouteLesCarteHandler()
+    })
+
+    //http://localhost:4000/api/AjouterCarte
     const ajouterCarteHandler = useCallback(async () => {
-        const nouvelCarte = await fetch('http://localhost:4000/api/AjouterCarte', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({...carteChoisi})
-        }).then(response => response.json())
+        try {
+            const nouvelCarte = await fetch('http://localhost:4000/api/AjouterCarte', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json'
+                },body: JSON.stringify(carteChoisi)
+            }).then(response => response.json());
+        } catch (error) {
+            console.log(error.message);
+        }
     });
 
     //http://localhost:4000/api/DeleteCarte/:id
     const deleteCarte = async (Id) => {
         try {
-            console.log(`http://localhost:4000/api/DeleteCarte/${Id}`);
+            // console.log(`http://localhost:4000/api/DeleteCarte/${Id}`);
             const carteDeleter = await fetch(`http://localhost:4000/api/DeleteCarte/${Id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
                     'Accept': 'application/json'
                 }
-            });
-            if(carteDeleter.ok) {
-                const idCarteDeleter = await carteDeleter.json();
-                console.log('Une Carte a été retirer')
-            } else {
-                console.log('une erreur est survenu la carte nest pas deleter');
-            }
+            }).then(response => response.json());
         } catch (error) {
-            setErreur(error.message);
+            console.log(error.message);
         }
     };
 
-    // http://localhost:4000/api/UpdateCarte/1
+    // http://localhost:4000/api/UpdateCarte/:id
     const updateCarte = async (Id) => {
         try {
             const carteModifier = await fetch(`http://localhost:4000/api/UpdateCarte/${Id}`, {
@@ -101,7 +95,7 @@ const PageHearthStone2 = () => {
                 body: JSON.stringify({ ...carteChoisi })
             }).then(response => response.json())
         } catch (error) {
-            setErreur(error.message);
+            console.log(error.message);
         }
     };
 
@@ -109,21 +103,16 @@ const PageHearthStone2 = () => {
         <u>
             <h1 style={{ paddingBottom: '50px' }}>Application HearthStone</h1>
         </u>
-        <section>
-                <b>
-                    <u>
-                        <p>Appuyer sur le bouton pour afficher les Cartes HearthStone de la Db</p>
-                    </u>
-                </b>
-                <button onClick={getTouteLesCarteHandler}>Clicker pour afficher les Cartes HeartStone de la Db</button>
-        </section>
         <div>
-            <Tableaux cartes={cartes} deleteCarte={deleteCarte} updateCarte={updateCarte}/>
-        </div>
-        <div>
-            <h2>Ajouter Une nouvel Carte</h2>
-            <CarteForm setInput={validationInput} ajouterCarte={ajouterCarteHandler}/>
-        </div> 
+            <h2>Liste de Cartes HeartStone dans La DB</h2>
+            <Tableaux
+                cartes={cartes}
+                deleteCarte={deleteCarte}
+                updateCarte={updateCarte}
+                setInput={validationInput}
+                ajouterCarte={ajouterCarteHandler}
+            />
+        </div>  
     </Fragment>)
 }
 

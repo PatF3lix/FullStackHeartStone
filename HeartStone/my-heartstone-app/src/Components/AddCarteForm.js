@@ -3,6 +3,8 @@ import MyCard from '../UI/MyCard';
 import classes from './CarteForm.module.css';
 const { Fragment } = require("react")
 
+// Ce composant est responsable du Form pour la creation d'une nouvelle carte.
+
 const CarteForm = (props) => {
     return <Fragment>
         <MyCard>

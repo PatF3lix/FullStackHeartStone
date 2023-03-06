@@ -1,0 +1,4 @@
+###GET tout les cartes de la base de donnée
+GET http://localhost:4000/api/GetCartes
+Content-type: application/json
+

@@ -1,4 +1,6 @@
 'use strict';
+// Ce Module est Responsable Pour la configuration de la connection 
+// à la base de donnée Sql Server
 const dotenv = require('dotenv');
 const assert = require('assert');
 

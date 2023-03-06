@@ -1,20 +1,25 @@
 'use strict'
 
+// Ce module est responsable pour la gestion de toute les requetes sql nécéssaire
+// Pour accomplir les Opération Crud
+
 const utils = require('../utils');
 const config = require('../../config');
 const sql = require('mssql');
 
+//Read
 const getCartes = async () => {
-    try {
-        let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('CartesEvents');
-        const list = await pool.request().query(sqlQueries.listDeCartes);
-        return list.recordset;
-    } catch (error) {
-        return error.message;
-    }
+try {
+    let pool = await sql.connect(config.sql);
+    const sqlQueries = await utils.loadSqlQueries('CartesEvents');
+    const list = await pool.request().query(sqlQueries.listDeCartes);
+    return list.recordset;
+} catch (error) {
+    return error.message;
+}
 };
 
+// GET
 const getCarteById = async (carteId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -26,6 +31,7 @@ const getCarteById = async (carteId) => {
     }
 };
 
+// CREATE
 const createCarte = async (carteData) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -43,6 +49,7 @@ const createCarte = async (carteData) => {
     }
 };
 
+// PUT
 const updateCarte = async (carteId, carteData) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -61,6 +68,7 @@ const updateCarte = async (carteId, carteData) => {
     }
 };
 
+// DELETE
 const deleteCarte = async (carteId) => {
     try {
         let pool = await sql.connect(config.sql);

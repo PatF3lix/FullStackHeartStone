@@ -1,4 +1,6 @@
 'use strict'
+// Ce Module est responsable pour la gestion de tout les composant nécéssaire pour batir cette application.
+// Une fois que tout les composant sont crée et utiliser, l'application peut démarée correctement.
 const express = require('express');
 const config = require('./config');
 const cors = require('cors');

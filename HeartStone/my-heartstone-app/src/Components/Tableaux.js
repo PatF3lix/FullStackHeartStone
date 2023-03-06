@@ -30,14 +30,18 @@ const Tableaux = (props) => {
                 <br>
             </br>
             <h2>UpdateCarteForm</h2>
-                <UpdateCarteForm validationInputUpdate={props.validationInputUpdate} updateCarte={props.updateCarte} erreur={props.erreur} />
+            <UpdateCarteForm
+                validationInputUpdate={props.validationInputUpdate}
+                updateCarte={props.updateCarte} erreur={props.erreur} />
             </div>
     } else if (etatInitiale === false && updateClicker === false && ajouterClicker === true) {
         contenu = <div>
                 <br>
             </br>
             <h2>AjouterCarteForm</h2>
-                <CarteForm validationInputAjouter={props.validationInputAjouter} ajouterCarte={props.ajouterCarte} />
+            <CarteForm
+                validationInputAjouter={props.validationInputAjouter}
+                ajouterCarte={props.ajouterCarte} />
             </div>
     } else {
         contenu = null;

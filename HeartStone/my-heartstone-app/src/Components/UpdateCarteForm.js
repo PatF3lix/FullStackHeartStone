@@ -3,13 +3,16 @@ import MyCard from '../UI/MyCard';
 import classes from './CarteForm.module.css';
 const { Fragment } = require("react")
 
+// Ce composant est responsable du Form pour la mise à jour d'une carte.
+
 const UpdateCarteForm = (props) => {
 
     return <Fragment>
         <MyCard>
             { props.erreur === true ?<div class="alert alert-warning" role="alert">
-                    Oups! Une erreur est survenu! Le Id inséré ne correspond pas aux Id d'une carte pésente dans la base de donner!<br></br>
-                    Veuilliez essayer à nouveau! Merci!
+                Oups! Une erreur est survenu!<br></br>
+                Le Id inséré ne correspond pas aux Id d'une carte pésente dans la base de donner!<br></br>
+                Veuilliez essayer à nouveau! Merci!
                 </div>
         : null}
             <form><label>
@@ -73,7 +76,6 @@ const UpdateCarteForm = (props) => {
                     onChange={props.validationInputUpdate }></input>
                 <Button className={classes.button} type="button" onClick={props.updateCarte}>Update</Button>
             </form>
-            
         </MyCard>
     </Fragment>
 } 

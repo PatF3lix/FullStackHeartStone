@@ -1,4 +1,6 @@
 'use strict';
+// Ce Module est responsable pour la gestion des EndPoints du côter-server.
+// Pour que l'application client puisse consomer les service crud Offert. 
 const express = require('express');
 const cartesController = require('../Controller/cartesConrtoler');
 const router = express.Router();

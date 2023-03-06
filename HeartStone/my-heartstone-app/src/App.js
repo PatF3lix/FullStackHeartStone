@@ -6,6 +6,7 @@ import RootLayout from './Pages/Root';
 import PageHearthStone from './Pages/PageHearthStone';
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Ce Module est responsable pour la Gestion des Pages Disponibles à l'utilisateur durant l'utilisation de cette application.
 
 const router = createBrowserRouter([
   {

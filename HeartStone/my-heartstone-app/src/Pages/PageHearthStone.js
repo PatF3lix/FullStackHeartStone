@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import Tableaux from '../Components/Tableaux';
 
 // Ce composant est le Controleur de la PageHearthStone, il est responsable du CRUD vers le servers API et la validation de input.
+
 const PageHearthStone = () => {
     const [cartes, setCartes] = useState([]);
     const [carteAjouter, setCarteAjouter] = useState({ Rareter: 'COMMON', Nom: '', Cout: 0, Attack: 0, Vie: 1 });
@@ -43,7 +44,7 @@ const PageHearthStone = () => {
         }));
     };
 
-    //http://localhost:4000/api/GetCartes
+    //GET
     const getTouteLesCarteHandler = (async () => {
         try {
             const response = await fetch('http://localhost:4000/api/GetCartes');
@@ -71,7 +72,7 @@ const PageHearthStone = () => {
         getTouteLesCarteHandler()
     })
 
-    //http://localhost:4000/api/AjouterCarte
+    //PUT
     const ajouterCarteHandler = async () => {
         try {
 
@@ -88,7 +89,7 @@ const PageHearthStone = () => {
         }
     };
 
-    //http://localhost:4000/api/DeleteCarte/:id
+    //DELETE
     const deleteCarte = async (Id) => {
         try {
             const carteDeleter = await fetch(`http://localhost:4000/api/DeleteCarte/${Id}`, {
@@ -104,7 +105,7 @@ const PageHearthStone = () => {
         }
     };
 
-    // http://localhost:4000/api/UpdateCarte/:id
+    // UPDATE
     const updateCarte = async () => {
         try {
             var carteTrouver = cartes.find((carte) => { return carte.Id === carteUpdater.Id });
@@ -162,7 +163,6 @@ const PageHearthStone = () => {
             </div>
         </div>
     }
-
     return(<Fragment>
         {contenu}
     </Fragment>)

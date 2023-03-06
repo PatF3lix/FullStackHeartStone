@@ -72,7 +72,7 @@ const PageHearthStone = () => {
         getTouteLesCarteHandler()
     })
 
-    //PUT
+    //POST
     const ajouterCarteHandler = async () => {
         try {
 

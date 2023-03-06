@@ -7,24 +7,40 @@ const UpdateCarteForm = (props) => {
 
     return <Fragment>
         <MyCard>
-            <form>
+            { props.erreur === true ?<div class="alert alert-warning" role="alert">
+                    Oups! Une erreur est survenu! Le Id inséré ne correspond pas aux Id d'une carte pésente dans la base de donner!<br></br>
+                    Veuilliez essayer à nouveau! Merci!
+                </div>
+        : null}
+            <form><label>
+                Id:
+            </label>
                 <input
                     className={classes.input}
                     type="number"
                     name="Id"
                     placeholder="Id.."
                     min="1"
-                    onChange={props.validationInputUpdate }></input>
+                    onChange={props.validationInputUpdate}></input>
+                <label>
+                Rareter:
+            </label>
                 <input
                     className={classes.input}
                     name="Rareter"
                     placeholder="Rareter.."
-                    onChange={props.validationInputUpdate }></input>
+                    onChange={props.validationInputUpdate}></input>
+                <label>
+                Nom:
+            </label>
                 <input
                     className={classes.input}
                     name="Nom"
                     placeholder="Nom.."
-                    onChange={props.validationInputUpdate }></input>
+                    onChange={props.validationInputUpdate}></input>
+                <label>
+                Cout:
+            </label>
                 <input
                     className={classes.input}
                     type="number"
@@ -32,7 +48,10 @@ const UpdateCarteForm = (props) => {
                     placeholder="Cout.."
                     min="0"
                     max="20"
-                    onChange={props.validationInputUpdate }></input>
+                    onChange={props.validationInputUpdate}></input>
+                <label>
+                Attack:
+            </label>
                 <input
                     className={classes.input}
                     type="number"
@@ -40,7 +59,10 @@ const UpdateCarteForm = (props) => {
                     placeholder="Attack.."
                     min="0"
                     max="15"
-                    onChange={props.validationInputUpdate }></input>
+                    onChange={props.validationInputUpdate}></input>
+                <label>
+                Vie:
+            </label>
                 <input
                     className={classes.input}
                     type="number"
@@ -51,9 +73,7 @@ const UpdateCarteForm = (props) => {
                     onChange={props.validationInputUpdate }></input>
                 <Button className={classes.button} type="button" onClick={props.updateCarte}>Update</Button>
             </form>
-            { props.erreur === true ? <p>Oups! Une erreur est survenu! Le Id inséré ne correspond pas aux Id d'une carte pésente dans la base de donner!<br></br>
-        Veuilliez essayer à nouveau! Merci!</p>
-        : null}
+            
         </MyCard>
     </Fragment>
 } 

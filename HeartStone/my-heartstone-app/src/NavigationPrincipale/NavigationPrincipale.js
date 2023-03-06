@@ -8,12 +8,12 @@ const NavigationPrincipale = () => {
             <nav>
                 <ul className={classes.list}>
                     <li>
-                        <NavLink to={'/'} className={({ isActive }) =>
+                        <NavLink style={{fontSize: 20}} to={'/'} className={({ isActive }) =>
                             isActive ? classes.active : undefined} end={true}>PagePrincipale
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={'/HearthStone'} className={({ isActive }) =>
+                        <NavLink style={{fontSize: 20}} to={'/HearthStone'} className={({ isActive }) =>
                             isActive ? classes.active : undefined} end={true}>Application HearthStone
                         </NavLink>
                     </li>

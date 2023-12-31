@@ -2,15 +2,14 @@
  
 Description
 
-Ce projet Final Service web FullStack HearthStone démontre une application full stack.
-Une base de donnée, storée dans Sql server sert à alimenté Notre application Api, et permettant Ainsi des Service Crud d'être exploitée par d'autre application Client.
-La logic rooting server se retrouve dans notre application my-heartstone-api et est Supporter par Node.js, Express, mssql, cors et body-parser.
-La logic rooting se retrouve dans notre application my-heartstone-app et est support par React react-router-dom@6 et bootstrap react-bootstrap.
+This Final FullStack HearthStone web service project demonstrates a full stack application.
+A database, stored in Sql server, is used to power Our API application, and thus allowing the Crud Service to be exploited by other Client applications.
+The rooting server logic is found in our my-heartstone-api application and is supported by Node.js, Express, mssql, cors and body-parser.
+The rooting logic is found in our my-heartstone-app application and is supported by React react-router-dom@6 and react-bootstrap bootstrap.
 
-Contribution Je suis très ouvert aux contributions et commentaires.
 
-Auteurs et reconnaissances
+Contribution I am very open to contributions and comments.
 
-Étudiants en développement de logiciel Merci aux professeurs.
+Authors and recognitions
 
-État du projet Le développement du projet est en attente pour évaluation dans le cadre du cours de Concept de programmation.
+Software development students Thanks to the teachers.
